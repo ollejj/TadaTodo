@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import cn from "classnames";
+import Header from "./components/header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,11 +16,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const style = cn("bg-eerie-black text-isabeline", inter.className);
+  const style = cn("text-isabeline bg-eerie-black-400", inter.className);
 
   return (
     <html lang="en">
-      <body className={style}>{children}</body>
+      <body className={style}>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

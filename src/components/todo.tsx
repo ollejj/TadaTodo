@@ -18,19 +18,19 @@ export const Todo = ({ label, dateAdded, dateEnd, handleDelete }) => {
   });
 
   return (
-    <div className="shadow-lg bg-[#2C2547] p-4 flex flex-row justify-between rounded-lg w-full lg:w-72 gap-4 items-center">
-      <input type="checkbox" className="accent-[#FC7785] w-7 h-7" />
+    <div className="shadow-lg bg-todo p-4 flex flex-row justify-between rounded-lg w-full lg:w-72 gap-4 items-center">
+      <input type="checkbox" className="accent-pink w-7 h-7" />
 
       <div className="flex flex-col w-full">
         <h1 className="text-white text-lg font-semibold">{label}</h1>
         <div className="flex flex-row gap-4">
-          <h3 className="text-[#fc7785] text-xs">{formattedEnd} days</h3>
-          <h3 className="text-[#5E5783] bg-[#332C4D] px-2 text-xs rounded-full">
+          <h3 className="text-pink text-xs">{formattedEnd} days</h3>
+          <h3 className="text-date-text bg-date-bg px-2 text-xs rounded-full">
             {dateEnd}
           </h3>
         </div>
       </div>
-      <Icon path={mdiTrashCan} className="w-7 h-7" />
+      <Icon path={mdiTrashCan} className="w-7 h-7 text-date-text" />
 
       {/* <button className="shadow-lg shadow-eerie-black-300 bg-ecru p-2 rounded-lg">
         <Icon path={mdiCheck} className="text-isabeline w-10 h-10" />

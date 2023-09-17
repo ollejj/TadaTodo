@@ -98,7 +98,7 @@ export default function Home({ initialTodos }) {
   return (
     <div>
       <Header />
-      <main className="w-screen p-4 mb-24 flex flex-col lg:flex-row gap-6 text-isabeline">
+      <main className="w-screen p-4 mb-24 flex flex-col lg:flex-row gap-6 text-white">
         {initialTodos
           ?.sort((a, b) => new Date(a.dateEnd) - new Date(b.dateEnd))
           .map((e, i) => {
@@ -108,32 +108,32 @@ export default function Home({ initialTodos }) {
           })}
 
         <Button
-          className="fixed bottom-10 self-center w-12 h-12 justify-items-center bg-[#FC7785] rounded-lg shadow-xl shadow-[#FC7785]"
+          className="fixed bottom-10 self-center w-12 h-12 justify-items-center bg-pink rounded-lg shadow-xl shadow-[#FC7785]"
           leadingIcon={mdiPlus}
           onClick={toggleModal}
         />
         {modalIsOpen && (
           <Modal title="Add Todo" onCancel={toggleModal} onConfirm={addTodo}>
             <div className="flex flex-col gap-1">
-              <label htmlFor="desc" className="text-eerie-black-50 text-sm">
+              <label htmlFor="desc" className="text-sm">
                 Description
               </label>
               <input
                 ref={descRef}
                 name="desc"
-                className="w-full h-10 px-2 text-sm text-white rounded-md bg-eerie-black-100"
+                className="w-full h-10 px-2 text-sm text-white rounded-md"
                 type="text"
                 placeholder="e.g., Buy milk and oatmeal"
               />
             </div>
             <div className="flex flex-col gap-1">
-              <label htmlFor="schedule" className="text-eerie-black-50 text-sm">
+              <label htmlFor="schedule" className="text-sm">
                 Schedule
               </label>
               <input
                 ref={deadlineRef}
                 name="schedule"
-                className="w-full h-10 px-2 text-sm text-white rounded-md bg-eerie-black-100"
+                className="w-full h-10 px-2 text-sm text-white rounded-md"
                 type="date"
                 defaultValue={new Date().toISOString().substring(0, 10)}
               />

@@ -98,7 +98,7 @@ export default function Home({ initialTodos }) {
   return (
     <div>
       <Header />
-      <main className="w-screen p-4 flex flex-col lg:flex-row gap-6 text-isabeline">
+      <main className="w-screen p-4 mb-24 flex flex-col lg:flex-row gap-6 text-isabeline">
         {initialTodos
           ?.sort((a, b) => new Date(a.dateEnd) - new Date(b.dateEnd))
           .map((e, i) => {
@@ -108,8 +108,8 @@ export default function Home({ initialTodos }) {
           })}
 
         <Button
-          className="fixed bottom-0 left-0 right-0 h-12 justify-items-center bg-ok"
-          label="Add Todo"
+          className="fixed bottom-10 self-center w-12 h-12 justify-items-center bg-[#FC7785] rounded-lg shadow-xl shadow-[#FC7785]"
+          leadingIcon={mdiPlus}
           onClick={toggleModal}
         />
         {modalIsOpen && (

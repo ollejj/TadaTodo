@@ -1,5 +1,5 @@
 import Icon from "@mdi/react";
-import { mdiTrashCan, mdiCheck } from "@mdi/js";
+import { mdiTrashCan } from "@mdi/js";
 import cn from "classnames";
 
 export const Todo = ({ label, dateAdded, dateEnd, handleDelete }) => {
@@ -18,22 +18,38 @@ export const Todo = ({ label, dateAdded, dateEnd, handleDelete }) => {
   });
 
   return (
-    <div className="shadow-lg shadow-eerie-black-200 bg-eerie-black-200 p-4 flex flex-col rounded-lg lg:w-72">
-      <h3 className={timeLeftStyle}>{formattedEnd} days</h3>
-      <h1 className="text-xl">{label}</h1>
-      <h5 className="text-xs self-end">{dateAdded}</h5>
+    <div className="shadow-lg bg-[#2C2547] p-4 flex flex-row justify-between rounded-lg w-full lg:w-72 gap-4 items-center">
+      <input type="checkbox" className="accent-[#FC7785] w-7 h-7" />
 
-      <div className="flex flex-row justify-between mt-4">
-        <button
-          onClick={handleDelete}
-          className="shadow-lg shadow-eerie-black-300 bg-cordovan-200 p-2 rounded-lg"
-        >
-          <Icon path={mdiTrashCan} className="text-isabeline w-10 h-10" />
-        </button>
-        <button className="shadow-lg shadow-eerie-black-300 bg-ecru p-2 rounded-lg">
-          <Icon path={mdiCheck} className="text-isabeline w-10 h-10" />
-        </button>
+      <div className="flex flex-col w-full">
+        <h1 className="text-white text-lg font-semibold">{label}</h1>
+        <div className="flex flex-row gap-4">
+          <h3 className="text-[#fc7785] text-xs">{formattedEnd} days</h3>
+          <h3 className="text-[#5E5783] bg-[#332C4D] px-2 text-xs rounded-full">
+            {dateEnd}
+          </h3>
+        </div>
       </div>
+      <Icon path={mdiTrashCan} className="w-7 h-7" />
+
+      {/* <button className="shadow-lg shadow-eerie-black-300 bg-ecru p-2 rounded-lg">
+        <Icon path={mdiCheck} className="text-isabeline w-10 h-10" />
+      </button>
+
+      <div class="flex flex-col w-full">
+        <h1 className="text-xl">{label}</h1>
+        <div className="flex flex-row">
+          <h3 className={timeLeftStyle}>{formattedEnd} days</h3>
+          <h5 className="text-xs self-end">{dateAdded}</h5>
+        </div>
+      </div>
+
+      <button
+        onClick={handleDelete}
+        className="shadow-lg shadow-eerie-black-300 bg-cordovan-200 p-2 rounded-lg"
+      >
+        <Icon path={mdiTrashCan} className="text-isabeline w-10 h-10" />
+      </button> */}
     </div>
   );
 };

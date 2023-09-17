@@ -12,4 +12,5 @@ model Todo {
   label String
   dateAdded String
   dateEnd String
+  isChecked Boolean @default(false)
 }

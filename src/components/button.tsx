@@ -13,10 +13,7 @@ export const Button = ({
   trailingIcon,
   trailingIconClass,
 }) => {
-  const style = cn(
-    "p-2 bg-ok flex flex-row justify-between items-center",
-    className
-  );
+  const style = cn("p-2 flex flex-row justify-between items-center", className);
 
   const leadingIconStyle = cn("text-isabeline w-10 h-10", leadingIconClass);
   const trailingIconStyle = cn("text-isabeline w-10 h-10", trailingIconClass);

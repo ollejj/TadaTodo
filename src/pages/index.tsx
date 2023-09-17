@@ -1,5 +1,6 @@
 import { Todo } from "../components/todo";
 import { Button } from "../components/button";
+import { Modal } from "../components/modal";
 import { mdiPlus } from "@mdi/js";
 import useSWR from "swr";
 import { PrismaClient } from "@prisma/client";
@@ -9,6 +10,7 @@ import cn from "classnames";
 import "../app/globals.css";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
+import { useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -56,12 +58,14 @@ const addTodo = async (todo) => {
     throw new Error(response.statusText);
   }
 
+  console.log(response.status);
+
   return await response.json();
 };
 
 const deleteTodo = async (todo) => {
   if (window.confirm("Do you want to delete this todoo?")) {
-    await fetch("/api/todoHandler", {
+    const response = await fetch("/api/todoHandler", {
       method: "DELETE",
       body: JSON.stringify({
         id: todo.id,
@@ -70,12 +74,19 @@ const deleteTodo = async (todo) => {
         "Content-Type": "application/json; charset=utf8",
       },
     });
-    console.log("response", todo);
+
+    console.log(response.status);
   }
 };
 
 export default function Home({ initialTodos }) {
   const bodyStyle = cn("text-isabeline bg-eerie-black-400", inter.className);
+
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+
+  const toggleModal = () => {
+    setModalIsOpen(!modalIsOpen);
+  };
 
   return (
     <div>
@@ -90,16 +101,36 @@ export default function Home({ initialTodos }) {
           })}
 
         <Button
-          className="fixed bottom-0 left-0 right-0 h-12 justify-items-center"
+          className="fixed bottom-0 left-0 right-0 h-12 justify-items-center bg-ok"
           label="Add Todo"
-          onClick={() =>
-            addTodo({
-              label: "test",
-              dateAdded: "2023-06-05",
-              dateEnd: "2023-10-10",
-            })
-          }
+          onClick={toggleModal}
         />
+        {modalIsOpen && (
+          <Modal title="Add Todo" onCancel={toggleModal} onConfirm={addTodo}>
+            <div className="flex flex-col gap-1">
+              <label htmlFor="desc" className="text-eerie-black-50 text-sm">
+                Description
+              </label>
+              <input
+                name="desc"
+                className="w-full h-10 px-2 text-sm text-white rounded-md bg-eerie-black-100"
+                type="text"
+                placeholder="e.g., Buy milk and oatmeal"
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label htmlFor="schedule" className="text-eerie-black-50 text-sm">
+                Schedule
+              </label>
+              <input
+                name="schedule"
+                className="w-full h-10 px-2 text-sm text-white rounded-md bg-eerie-black-100"
+                type="date"
+                defaultValue={new Date().toISOString().substring(0, 10)}
+              />
+            </div>
+          </Modal>
+        )}
       </main>
     </div>
   );

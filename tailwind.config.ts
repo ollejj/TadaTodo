@@ -23,6 +23,7 @@ const config: Config = {
         },
         isabeline: "#F2EFE9",
         "eerie-black": {
+          50: "#636668",
           100: "#4a4c4e",
           200: "#3e4041",
           300: "#313334",

@@ -10,7 +10,7 @@ import cn from "classnames";
 import "../app/globals.css";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -43,49 +43,56 @@ export const getServerSideProps = (async (context) => {
   };
 }) satisfies GetServerSideProps<ResponseData>;
 
-const addTodo = async (todo) => {
-  const response = await fetch("/api/todoHandler", {
-    method: "POST",
-    body: JSON.stringify(todo),
-    headers: {
-      "Content-Type": "application/json; charset=utf8",
-    },
-  });
+export default function Home({ initialTodos }) {
+  const bodyStyle = cn("text-isabeline bg-eerie-black-400", inter.className);
 
-  console.log("response", todo);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
-  if (!response.ok) {
-    throw new Error(response.statusText);
-  }
+  const descRef = useRef<HTMLInputElement>(null);
+  const deadlineRef = useRef<HTMLInputElement>(null);
 
-  console.log(response.status);
+  const toggleModal = () => {
+    setModalIsOpen(!modalIsOpen);
+  };
 
-  return await response.json();
-};
-
-const deleteTodo = async (todo) => {
-  if (window.confirm("Do you want to delete this todoo?")) {
+  const addTodo = async (todo) => {
     const response = await fetch("/api/todoHandler", {
-      method: "DELETE",
+      method: "POST",
       body: JSON.stringify({
-        id: todo.id,
+        label: descRef.current.value,
+        dateEnd: deadlineRef.current.value,
+        dateAdded: new Date().toISOString().substring(0, 10),
       }),
       headers: {
         "Content-Type": "application/json; charset=utf8",
       },
     });
 
-    console.log(response.status);
-  }
-};
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
 
-export default function Home({ initialTodos }) {
-  const bodyStyle = cn("text-isabeline bg-eerie-black-400", inter.className);
+    setModalIsOpen(false);
 
-  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+    return await response.json();
+  };
 
-  const toggleModal = () => {
-    setModalIsOpen(!modalIsOpen);
+  const deleteTodo = async (todo) => {
+    if (window.confirm("Do you want to delete this todoo?")) {
+      const response = await fetch("/api/todoHandler", {
+        method: "DELETE",
+        body: JSON.stringify({
+          id: todo.id,
+        }),
+        headers: {
+          "Content-Type": "application/json; charset=utf8",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+    }
   };
 
   return (
@@ -112,6 +119,7 @@ export default function Home({ initialTodos }) {
                 Description
               </label>
               <input
+                ref={descRef}
                 name="desc"
                 className="w-full h-10 px-2 text-sm text-white rounded-md bg-eerie-black-100"
                 type="text"
@@ -123,6 +131,7 @@ export default function Home({ initialTodos }) {
                 Schedule
               </label>
               <input
+                ref={deadlineRef}
                 name="schedule"
                 className="w-full h-10 px-2 text-sm text-white rounded-md bg-eerie-black-100"
                 type="date"

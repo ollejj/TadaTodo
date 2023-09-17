@@ -21,10 +21,11 @@ export default async function handler(
 
   if (method === "POST") {
     try {
-      const user = await prisma.todo.create({
-        data: { ...body },
+      console.log(body);
+      const todo = await prisma.todo.create({
+        data: body,
       });
-      res.status(200).json(user);
+      res.status(200).json(todo);
     } catch (err) {
       res.status(400).send("ERROR");
     }

@@ -12,12 +12,14 @@ export const Modal = ({ title, onConfirm, onCancel, children }) => {
             leadingIcon={mdiWindowClose}
             leadingIconClass="w-6 h-6"
             className="bg-cordovan-200 px-2 py-2 rounded-lg gap-1"
+            onClick={onCancel}
           />
           <Button
             label="Confirm"
             leadingIcon={mdiCheck}
             leadingIconClass="w-6 h-6"
             className="bg-ok px-2 py-2 rounded-lg gap-1"
+            onClick={onConfirm}
           />
         </div>
         {children}

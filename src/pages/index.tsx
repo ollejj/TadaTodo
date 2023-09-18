@@ -2,6 +2,7 @@ import { Todo } from "../components/todo";
 import { Button } from "../components/button";
 import { Modal } from "../components/modal";
 import { Input } from "../components/input";
+import { Checkbox } from "../components/checkbox";
 import { mdiPlus } from "@mdi/js";
 import useSWR from "swr";
 import { PrismaClient } from "@prisma/client";
@@ -51,20 +52,23 @@ export default function Home({ initialTodos }) {
 
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
-  const descRef = useRef<HTMLInputElement>(null);
+  const descRef = useRef<HTMLInputElement>("");
   const deadlineRef = useRef<HTMLInputElement>(null);
 
   const toggleModal = () => {
     setModalIsOpen(!modalIsOpen);
   };
 
-  const handleAddTodo = () =>
+  const handleAddTodo = () => {
+    if (descRef.current.value.length < 3) return;
+
     addTodo(descRef, deadlineRef)
       .then(() => {
         setModalIsOpen(false);
         router.replace(router.asPath);
       })
       .catch(console.log);
+  };
 
   const handleDeleteTodo = (todo) =>
     deleteTodo(todo)
@@ -75,10 +79,8 @@ export default function Home({ initialTodos }) {
 
   const handleUpdateTodo = (todo) => updateTodo(todo).catch(console.log);
 
-  const parentRef = useRef<HTMLDivElement>();
-
   return (
-    <div ref={parentRef}>
+    <div>
       <Header />
       <main className="w-screen p-4 mb-24 flex flex-col lg:flex-row gap-6 text-white overflow-hidden">
         {initialTodos
@@ -118,6 +120,7 @@ export default function Home({ initialTodos }) {
               label="Schedule"
               inputRef={deadlineRef}
               defaultValue={new Date().toISOString().substring(0, 10)}
+              min={new Date().toISOString().substring(0, 10)}
             />
           </Modal>
         )}

@@ -26,7 +26,7 @@ export default async function handler(
       });
       res.status(200).json(todo);
     } catch (err) {
-      res.status(400).send("ERROR");
+      res.status(400).send(err);
     }
   }
 
@@ -39,7 +39,7 @@ export default async function handler(
       });
       res.status(200).json(todo);
     } catch (err) {
-      res.status(400).send("ERROR");
+      res.status(400).send(err);
     }
   }
 
@@ -55,7 +55,7 @@ export default async function handler(
       });
       res.status(200).json(todo);
     } catch (err) {
-      res.status(400).send("ERROR");
+      res.status(400).send(err);
     }
   }
 }

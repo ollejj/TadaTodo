@@ -2,8 +2,15 @@ import Icon from "@mdi/react";
 import { mdiTrashCan } from "@mdi/js";
 import cn from "classnames";
 
-export const Todo = ({ label, dateAdded, dateEnd, handleDelete }) => {
-  const formattedEnd = Math.floor(
+export const Todo = ({
+  label,
+  dateAdded,
+  dateEnd,
+  handleDelete,
+  isChecked,
+  handleUpdate,
+}) => {
+  const formattedEnd = Math.ceil(
     (new Date(dateEnd) - new Date(Date.now())) / (1000 * 60 * 60 * 24)
   );
 
@@ -19,7 +26,12 @@ export const Todo = ({ label, dateAdded, dateEnd, handleDelete }) => {
 
   return (
     <div className="shadow-lg bg-todo p-4 flex flex-row justify-between rounded-lg w-full lg:w-72 gap-4 items-center">
-      <input type="checkbox" className="accent-pink w-7 h-7" />
+      <input
+        type="checkbox"
+        defaultChecked={isChecked}
+        className="accent-pink w-7 h-7"
+        onChange={handleUpdate}
+      />
 
       <div className="flex flex-col w-full">
         <h1 className="text-white text-lg font-semibold">{label}</h1>
@@ -30,7 +42,11 @@ export const Todo = ({ label, dateAdded, dateEnd, handleDelete }) => {
           </h3>
         </div>
       </div>
-      <Icon path={mdiTrashCan} className="w-7 h-7 text-date-text" />
+      <Icon
+        path={mdiTrashCan}
+        className="w-7 h-7 text-date-text"
+        onClick={handleDelete}
+      />
 
       {/* <button className="shadow-lg shadow-eerie-black-300 bg-ecru p-2 rounded-lg">
         <Icon path={mdiCheck} className="text-isabeline w-10 h-10" />

@@ -21,7 +21,6 @@ export default async function handler(
 
   if (method === "POST") {
     try {
-      console.log(body);
       const todo = await prisma.todo.create({
         data: body,
       });
@@ -33,12 +32,28 @@ export default async function handler(
 
   if (method === "DELETE") {
     try {
-      const user = await prisma.todo.delete({
+      const todo = await prisma.todo.delete({
         where: {
           id: body.id,
         },
       });
-      res.status(200).json(user);
+      res.status(200).json(todo);
+    } catch (err) {
+      res.status(400).send("ERROR");
+    }
+  }
+
+  if (method === "PUT") {
+    try {
+      const todo = await prisma.todo.update({
+        where: {
+          id: body.id,
+        },
+        data: {
+          isChecked: body.isChecked,
+        },
+      });
+      res.status(200).json(todo);
     } catch (err) {
       res.status(400).send("ERROR");
     }

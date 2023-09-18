@@ -3,7 +3,7 @@ import { Button } from "./button";
 import cn from "classnames";
 
 export const Modal = ({ title, onConfirm, onCancel, children, inputRef }) => {
-  const doneStyle = cn("py-2 rounded-lg text-md font-bold", {
+  const doneStyle = cn("py-2 rounded-lg text-md font-bold cursor-pointer", {
     "text-date-text": false,
     "text-pink": true,
   });
@@ -14,7 +14,7 @@ export const Modal = ({ title, onConfirm, onCancel, children, inputRef }) => {
         <div className="flex h-12 flex-row justify-between mb-2">
           <Button
             label="Cancel"
-            className="py-2 text-white text-sm rounded-lg"
+            className="py-2 text-white text-sm rounded-lg cursor-pointer"
             onClick={onCancel}
           />
           <Button label="Done" className={doneStyle} onClick={onConfirm} />

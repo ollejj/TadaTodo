@@ -18,6 +18,9 @@ const config: Config = {
         "date-text": "#5E5783",
         input: "#352C54",
       },
+      boxShadow: {
+        "add-todo": "0px 5px 100px 8px",
+      },
     },
   },
   plugins: [],

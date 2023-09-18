@@ -39,7 +39,7 @@ export const Todo = ({
       </div>
       <Icon
         path={mdiTrashCan}
-        className="w-7 h-7 text-date-text"
+        className="w-7 h-7 text-date-text cursor-pointer"
         onClick={handleDelete}
       />
     </div>

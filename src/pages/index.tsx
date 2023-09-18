@@ -99,7 +99,7 @@ export default function Home({ initialTodos }) {
           })}
 
         <Button
-          className="fixed bottom-10 self-center w-12 h-12 justify-items-center bg-pink rounded-lg shadow-xl shadow-[#FC7785]"
+          className="fixed lg:absolute lg:left-1/2 lg:right-1/2 bottom-10 self-center w-12 h-12 bg-pink rounded-lg shadow-add-todo shadow-pink cursor-pointer"
           icon={mdiPlus}
           onClick={toggleModal}
         />
